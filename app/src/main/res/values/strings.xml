@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UtilApp</string>
+    <string name="todayWeatherUrl">https://api.open-meteo.com/v1/forecast?latitude=%f&amp;longitude=%f&amp;hourly=temperature_2m,weathercode</string>
+    <string name="weekWeatherUrl">https://api.open-meteo.com/v1/forecast?latitude=%f&amp;longitude=%f&amp;daily=weathercode,temperature_2m_max,temperature_2m_min&amp;timezone=auto&amp;start_date=%s&amp;end_date=%s</string>
 </resources>
