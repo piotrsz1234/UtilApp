@@ -17,8 +17,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WeatherApi.fetchWeekWeather(this, 53.12, 23.15, new Date(), dto -> {
-            System.out.println(dto);
-        }, () -> {}, TemperatureFormat.Celsius);
     }
 }
