@@ -16,11 +16,16 @@ import me.piotrsz109.utilapp.weather.callbacks.FetchTodayWeatherCallback;
 import me.piotrsz109.utilapp.weather.callbacks.FetchWeekWeatherCallback;
 import me.piotrsz109.utilapp.weather.callbacks.OnFailedUserCallback;
 import me.piotrsz109.utilapp.weather.callbacks.OnSucceededUserCallback;
+import me.piotrsz109.utilapp.weather.dtos.TodayWeatherDto;
+import me.piotrsz109.utilapp.weather.dtos.WeekWeatherDto;
 import me.piotrsz109.utilapp.weather.formats.TemperatureFormat;
 
 public class WeatherApi {
 
     private static CronetEngine cronetEngine;
+
+    public static TodayWeatherDto TodayWeather;
+    public static WeekWeatherDto WeekWeather;
 
     public static void fetchTodayWeather(Context context, double latitude, double longitude, OnSucceededUserCallback successCallback, OnFailedUserCallback failedCallback, TemperatureFormat format) {
         if (cronetEngine == null) {
@@ -31,7 +36,10 @@ public class WeatherApi {
         Executor executor = Executors.newSingleThreadExecutor();
 
         UrlRequest.Builder requestBuilder = cronetEngine.newUrlRequestBuilder(
-                url, new FetchTodayWeatherCallback(context, successCallback, failedCallback, format), executor);
+                url, new FetchTodayWeatherCallback(context, (dto -> {
+                    TodayWeather = (TodayWeatherDto)dto;
+                    successCallback.call(dto);
+                }), failedCallback, format), executor);
 
         UrlRequest request = requestBuilder.build();
 
@@ -55,7 +63,10 @@ public class WeatherApi {
         Executor executor = Executors.newSingleThreadExecutor();
 
         UrlRequest.Builder requestBuilder = cronetEngine.newUrlRequestBuilder(
-                url, new FetchWeekWeatherCallback(context, successCallback, failedCallback, format), executor);
+                url, new FetchWeekWeatherCallback(context, (dto -> {
+                    WeekWeather = (WeekWeatherDto)dto;
+                    successCallback.call(dto);
+                }), failedCallback, format), executor);
 
         UrlRequest request = requestBuilder.build();
 

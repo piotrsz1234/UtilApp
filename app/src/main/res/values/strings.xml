@@ -50,4 +50,5 @@
     <string name="biometrics_title">Authenticate</string>
     <string name="biometrics_description">Don\'t be shy</string>
     <string name="NegativeBiometrics">I\'m shy</string>
+    <string name="reloadWeather">Do you wish to reload the weather?</string>
 </resources>

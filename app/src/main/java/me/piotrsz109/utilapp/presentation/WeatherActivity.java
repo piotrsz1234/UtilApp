@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -71,10 +72,28 @@ public class WeatherActivity extends AppCompatActivity {
             this.startActivity(intent);
         });
 
+        Context context = this;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         _locationListener = new SimpleLocationListener(((latitude, longitude) -> {
-            fetchHourlyWeather(latitude, longitude);
-            fetchWeeklyWeather(latitude, longitude);
+            if(WeatherApi.TodayWeather != null && WeatherApi.WeekWeather != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage(context.getString(R.string.reloadWeather))
+                        .setPositiveButton(R.string.yes, (dialog, id) -> {
+                            fetchHourlyWeather(latitude, longitude);
+                            fetchWeeklyWeather(latitude, longitude);
+                            dialog.dismiss();
+                        })
+                        .setNegativeButton(R.string.no, (dialog, id) -> {
+                            setTodayWeather(WeatherApi.TodayWeather);
+                            setWeekWeather(WeatherApi.WeekWeather);
+                            dialog.dismiss();
+                        });
+                builder.create().show();
+            }else {
+                fetchHourlyWeather(latitude, longitude);
+                fetchWeeklyWeather(latitude, longitude);
+            }
+
             setAddress(latitude, longitude);
         }));
 
