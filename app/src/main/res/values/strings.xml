@@ -34,4 +34,12 @@
     <string name="back">Back</string>
     <string name="ContentHint">Content</string>
     <string name="addCategory">Add category</string>
+    <string name="NameHint">Name</string>
+    <string name="red">red</string>
+    <string name="blue">Blue</string>
+    <string name="yellow">Yellow</string>
+    <string name="green">Green</string>
+    <string name="selectColor">Select color</string>
+    <string name="selectCategory">Select category</string>
+    <string name="addCategoryValidationMessage">Color and name are required!</string>
 </resources>

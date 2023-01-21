@@ -1,11 +1,14 @@
 package me.piotrsz109.utilapp.presentation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +29,7 @@ import me.piotrsz109.utilapp.weather.WeatherApi;
 public class NotesActivity extends AppCompatActivity {
 
     private RecyclerView notes;
+    private FloatingActionButton btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,11 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
 
         notes = findViewById(R.id.notesView);
+        btnAdd = findViewById(R.id.addNote);
+
+        btnAdd.setOnClickListener(view -> {
+            startActivity(new Intent(this, AddEditNoteActivity.class));
+        });
 
         fetchNotes();
     }

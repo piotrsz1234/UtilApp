@@ -3,6 +3,7 @@ package me.piotrsz109.utilapp.presentation.components;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import me.piotrsz109.utilapp.database.DatabaseHelper;
 import me.piotrsz109.utilapp.notes.Category;
 import me.piotrsz109.utilapp.notes.Note;
 import me.piotrsz109.utilapp.notes.NoteItem;
+import me.piotrsz109.utilapp.presentation.AddEditNoteActivity;
 import me.piotrsz109.utilapp.presentation.utils.SimpleCallback;
 
 public class NoteItemsAdapter extends RecyclerView.Adapter<NoteItemsAdapter.ViewHolder>{
@@ -65,6 +67,12 @@ public class NoteItemsAdapter extends RecyclerView.Adapter<NoteItemsAdapter.View
                     .setNegativeButton(R.string.no, (dialog, id) -> dialog.dismiss());
             // Create the AlertDialog object and return it
             builder.create().show();
+        });
+
+        holder.EditButton.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), AddEditNoteActivity.class);
+            intent.putExtra("id", item.Id);
+            view.getContext().startActivity(intent);
         });
     }
 

@@ -2,7 +2,6 @@ package me.piotrsz109.utilapp.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,9 +23,6 @@ import me.piotrsz109.utilapp.R;
 import me.piotrsz109.utilapp.database.DatabaseHelper;
 import me.piotrsz109.utilapp.notes.Category;
 import me.piotrsz109.utilapp.notes.Note;
-import me.piotrsz109.utilapp.notes.NoteItem;
-import me.piotrsz109.utilapp.presentation.components.CategoryAdapter;
-import me.piotrsz109.utilapp.presentation.components.NoteItemsAdapter;
 
 public class AddEditNoteActivity extends AppCompatActivity {
 
@@ -40,16 +35,18 @@ public class AddEditNoteActivity extends AppCompatActivity {
     private Button btnAddCategory;
     private List<Category> _categories;
 
+    Bundle received;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_note);
         Context context = this;
 
-        Bundle extra = getIntent().getExtras();
+        received = getIntent().getExtras();
 
-        if (extra != null) {
-            currentItemId = extra.getInt("id");
+        if (received != null) {
+            currentItemId = received.getInt("id");
         }
 
         _category = findViewById(R.id.category);
@@ -57,13 +54,12 @@ public class AddEditNoteActivity extends AppCompatActivity {
         content = findViewById(R.id.contentTextField);
         btnSave = findViewById(R.id.btnSave);
         btnBack = findViewById(R.id.btnBack);
-
-        _category.setAdapter(new CategoryAdapter(new ArrayList<Category>()));
+        btnAddCategory = findViewById(R.id.btnAddCategory);
 
         new Thread(() -> {
             List<Category> items = DatabaseHelper.getNoteDao(context).getAllCategories();
             _categories = items;
-            items.add(0, new Category(-1, "Select category", 0));
+            items.add(0, new Category(-1, getString(R.string.selectCategory), 0));
             setupCategories(items);
         }).start();
 
@@ -73,6 +69,10 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> {
             backToList();
+        });
+
+        btnAddCategory.setOnClickListener(v -> {
+            addCategory();
         });
     }
 
@@ -112,6 +112,8 @@ public class AddEditNoteActivity extends AppCompatActivity {
                     Note item = DatabaseHelper.getNoteDao(context).getById(currentItemId);
                     setAsEdit(item);
                 }).start();
+            } else if(received != null) {
+                setAsEdit(received);
             }
         });
     }
@@ -120,8 +122,15 @@ public class AddEditNoteActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             title.getEditText().setText(item.Title);
             content.getEditText().setText(item.Content);
+            _category.setSelection(_categories.indexOf(getById(item.CategoryId)), false);
+        });
+    }
 
-            _category.setId(_categories.indexOf(getById(item.Id)) + 1);
+    private void setAsEdit(Bundle bundle) {
+        runOnUiThread(() -> {
+            title.getEditText().setText(bundle.getString("title"));
+            content.getEditText().setText(bundle.getString("content"));
+            _category.setSelection(bundle.getInt("category"), false);
         });
     }
 
@@ -159,5 +168,15 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
     private void backToList() {
         startActivity(new Intent(this, NotesActivity.class));
+    }
+
+    private void addCategory() {
+        Intent intent = new Intent(this, AddCategoryActivity.class);
+        intent.putExtra("id", currentItemId);
+        intent.putExtra("category", _category.getSelectedItemPosition());
+        intent.putExtra("title", title.getEditText().getText().toString());
+        intent.putExtra("content", content.getEditText().getText().toString());
+
+        startActivity(intent);
     }
 }

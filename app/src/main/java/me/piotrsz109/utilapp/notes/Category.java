@@ -1,6 +1,9 @@
 package me.piotrsz109.utilapp.notes;
 
+import android.graphics.Color;
+
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.net.IDN;

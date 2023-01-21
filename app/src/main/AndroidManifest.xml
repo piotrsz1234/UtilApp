@@ -16,6 +16,9 @@
         android:theme="@style/Theme.UtilApp"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.AddCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.AddEditNoteActivity"
             android:exported="true">
             <intent-filter>
@@ -28,11 +31,10 @@
             android:name=".presentation.NotesActivity"
             android:exported="true"
             android:label="@string/title_activity_notes"
-            android:theme="@style/Theme.UtilApp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.UtilApp.NoActionBar"></activity>
         <activity
             android:name=".presentation.WeatherActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
