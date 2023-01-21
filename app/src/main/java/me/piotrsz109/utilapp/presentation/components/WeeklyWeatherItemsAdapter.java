@@ -10,16 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import me.piotrsz109.utilapp.R;
 import me.piotrsz109.utilapp.weather.WeatherApi;
 import me.piotrsz109.utilapp.weather.dtos.HourlyWeatherItem;
 import me.piotrsz109.utilapp.weather.dtos.WeatherType;
+import me.piotrsz109.utilapp.weather.dtos.WeeklyWeatherItem;
 
-public class HourlyWeatherItemsAdapter extends RecyclerView.Adapter<HourlyWeatherItemsAdapter.ViewHolder> {
+public class WeeklyWeatherItemsAdapter extends RecyclerView.Adapter<WeeklyWeatherItemsAdapter.ViewHolder> {
 
-    private HourlyWeatherItem[] weatherItems;
+    private WeeklyWeatherItem[] weatherItems;
 
-    public HourlyWeatherItemsAdapter(HourlyWeatherItem[] items) {
+    public WeeklyWeatherItemsAdapter(WeeklyWeatherItem[] items) {
         weatherItems = items;
     }
 
@@ -30,19 +36,25 @@ public class HourlyWeatherItemsAdapter extends RecyclerView.Adapter<HourlyWeathe
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View view = inflater.inflate(R.layout.weather_item, parent, false);
+        View contactView = inflater.inflate(R.layout.weather_item, parent, false);
 
         // Return a new holder instance
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(contactView);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.WeatherItemImage.setImageResource(WeatherType.fromWMO(weatherItems[position].getWeatherCode()).getIconId());
         Context context = holder.WeatherItemImage.getContext();
-        holder.WeatherItemTemperatureTextView.setText(String.format(context.getString(R.string.temperatureFormat),
-                WeatherApi.formatTemperature(weatherItems[position].getTemperature())));
-        holder.WeatherItemHourTextView.setText(String.format(String.valueOf(context.getText(R.string.hourFormat)), position));
+        holder.WeatherItemTemperatureTextView.setText(String.format(context.getString(R.string.weeklyTemperatureFormat),
+                WeatherApi.formatTemperature(weatherItems[position].getMaxTemperature()),
+                WeatherApi.formatTemperature(weatherItems[position].getMinTemperature())));
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, position + 1);
+        Date d = calendar.getTime();
+        holder.WeatherItemHourTextView.setText(new SimpleDateFormat(String.valueOf(context.getText(R.string.DateFormat))).format(d));
     }
 
     @Override

@@ -1,10 +1,10 @@
 package me.piotrsz109.utilapp.weather.dtos;
 
-public class WeatherItem {
+public class HourlyWeatherItem {
     private double _temperature;
     private int _weatherCode;
 
-    public WeatherItem(double temperature, int weatherCode) {
+    public HourlyWeatherItem(double temperature, int weatherCode) {
         _temperature = temperature;
         _weatherCode = weatherCode;
     }

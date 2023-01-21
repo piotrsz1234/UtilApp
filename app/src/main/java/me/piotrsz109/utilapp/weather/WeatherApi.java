@@ -27,7 +27,7 @@ public class WeatherApi {
             CronetEngine.Builder myBuilder = new CronetEngine.Builder(context);
             cronetEngine = myBuilder.build();
         }
-        String url = String.format(context.getString(R.string.todayWeatherUrl), latitude, longitude);
+        String url = String.format(context.getString(R.string.todayWeatherUrl), (latitude + "").replace(',', '.'), (longitude + "").replace(',', '.'));
         Executor executor = Executors.newSingleThreadExecutor();
 
         UrlRequest.Builder requestBuilder = cronetEngine.newUrlRequestBuilder(
@@ -50,7 +50,7 @@ public class WeatherApi {
         c.add(Calendar.DAY_OF_MONTH, 7);
         Date endDate = c.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String url = String.format(context.getString(R.string.weekWeatherUrl), latitude, longitude, dateFormat.format(startDate),
+        String url = String.format(context.getString(R.string.weekWeatherUrl), (latitude + "").replace(',', '.'), (longitude + "").replace(',', '.'), dateFormat.format(startDate),
                 dateFormat.format(endDate));
         Executor executor = Executors.newSingleThreadExecutor();
 
@@ -60,5 +60,13 @@ public class WeatherApi {
         UrlRequest request = requestBuilder.build();
 
         request.start();
+    }
+
+    public static String formatTemperature(double temp) {
+        String minus = temp > 0 ? "" : "-";
+        temp = Math.abs(temp);
+        if (temp % 1 != 0)
+            return String.format("%s%d.%d", minus, (int) temp, (int) ((temp % 1) * 10));
+        return String.format("%s%d", minus, (int) temp);
     }
 }

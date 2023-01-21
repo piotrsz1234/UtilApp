@@ -27,10 +27,10 @@ public class TodayWeatherDto implements WeatherDto {
         return temperatures[hour];
     }
 
-    public WeatherItem[] getHourlyWeather() {
-        WeatherItem[] result = new WeatherItem[24];
+    public HourlyWeatherItem[] getHourlyWeather() {
+        HourlyWeatherItem[] result = new HourlyWeatherItem[24];
         for (int i=0;i <24;i++) {
-            result[i] = new WeatherItem(temperatures[i], weatherCodes[i]);
+            result[i] = new HourlyWeatherItem(temperatures[i], weatherCodes[i]);
         }
 
         return result;

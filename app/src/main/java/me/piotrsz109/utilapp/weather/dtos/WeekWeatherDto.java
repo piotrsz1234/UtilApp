@@ -22,4 +22,13 @@ public class WeekWeatherDto implements WeatherDto {
     public double getMaxTemperature(int day) {
         return maxTemperatures[day];
     }
+
+    public WeeklyWeatherItem[] getWeeklyWeather() {
+        WeeklyWeatherItem[] result = new WeeklyWeatherItem[7];
+        for (int i=0;i <7;i++) {
+            result[i] = new WeeklyWeatherItem(minTemperatures[i], maxTemperatures[i], weatherCodes[i]);
+        }
+
+        return result;
+    }
 }

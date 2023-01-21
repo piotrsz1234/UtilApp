@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 import me.piotrsz109.utilapp.R;
+import me.piotrsz109.utilapp.database.DatabaseHelper;
 import me.piotrsz109.utilapp.location.GeocoderWrapper;
 import me.piotrsz109.utilapp.location.SimpleLocationListener;
 import me.piotrsz109.utilapp.presentation.components.HourlyWeatherItemsAdapter;
@@ -36,7 +37,7 @@ import me.piotrsz109.utilapp.weather.dtos.TodayWeatherDto;
 import me.piotrsz109.utilapp.weather.dtos.WeekWeatherDto;
 import me.piotrsz109.utilapp.weather.formats.TemperatureFormat;
 
-public class MainActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
     int LOCATION_REFRESH_TIME = 15000; // 15 seconds to update
     int LOCATION_REFRESH_DISTANCE = 1500; // 500 meters to update
     private Address _currentAddress;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_weather);
 
         hourlyWeatherItemsView = findViewById(R.id.hourlyWeather);
         weeklyWeatherItemsView = findViewById(R.id.weeklyWeather);
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         _loadingDialog = new ProgressDialog(this);
-        _loadingDialog.setMessage("Fetching weather info");
+        _loadingDialog.setMessage(getString(R.string.fetchWeatherInfo));
         _loadingDialog.setCancelable(false);
         _loadingDialog.setInverseBackgroundForced(true);
         _loadingDialog.show();
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this,
+            ActivityCompat.requestPermissions(WeatherActivity.this,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET},
                     5);
 
