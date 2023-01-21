@@ -42,4 +42,5 @@
     <string name="selectColor">Select color</string>
     <string name="selectCategory">Select category</string>
     <string name="addCategoryValidationMessage">Color and name are required!</string>
+    <string name="AddEditNoteValidationMessage">All fields are required!</string>
 </resources>

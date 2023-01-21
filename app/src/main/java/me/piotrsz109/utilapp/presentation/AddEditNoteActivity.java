@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -144,7 +145,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
     private void save() {
         if (title.getEditText().getText().length() == 0 || title.getEditText().getText().length() == 0 || _category.getId() == 0) {
-
+            Toast.makeText(this, getString(R.string.AddEditNoteValidationMessage), Toast.LENGTH_SHORT).show();
             return;
         }
 

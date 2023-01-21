@@ -20,6 +20,14 @@
             android:exported="false" />
         <activity
             android:name=".presentation.AddEditNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.NotesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_notes"
+            android:theme="@style/Theme.UtilApp.NoActionBar" />
+        <activity
+            android:name=".presentation.WeatherActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,14 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.NotesActivity"
-            android:exported="true"
-            android:label="@string/title_activity_notes"
-            android:theme="@style/Theme.UtilApp.NoActionBar"></activity>
-        <activity
-            android:name=".presentation.WeatherActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
