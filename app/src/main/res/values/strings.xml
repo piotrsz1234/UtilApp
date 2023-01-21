@@ -4,4 +4,6 @@
     <string name="weekWeatherUrl">https://api.open-meteo.com/v1/forecast?latitude=%f&amp;longitude=%f&amp;daily=weathercode,temperature_2m_max,temperature_2m_min&amp;timezone=auto&amp;start_date=%s&amp;end_date=%s</string>
     <string name="weatherNavigationText">Weather</string>
     <string name="Notes">Note</string>
+    <string name="noPermissionToLocation">You did not provide permission to access location</string>
+    <string name="failedToFetchWeather">Failed to fetch today weather</string>
 </resources>

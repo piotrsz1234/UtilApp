@@ -12,6 +12,10 @@ public final class WeatherType {
         iconRes = icon;
     }
 
+    public int getIconId() {
+        return iconRes;
+    }
+
     public static WeatherType ClearSky = new WeatherType("Clear sky", R.drawable.ic_sunny);
     public static WeatherType MainlyClear = new WeatherType("Mainly clear", R.drawable.ic_cloudy);
     public static WeatherType PartlyCloudy = new WeatherType(
