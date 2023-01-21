@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import me.piotrsz109.utilapp.R;
+import me.piotrsz109.utilapp.weather.WeatherApi;
 import me.piotrsz109.utilapp.weather.dtos.WeatherItem;
 import me.piotrsz109.utilapp.weather.dtos.WeatherType;
 
@@ -38,7 +39,11 @@ public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.WeatherItemImage.setBackgroundResource(WeatherType.fromWMO(weatherItems[position].getWeatherCode()).getIconId());
+        holder.WeatherItemImage.setImageResource(WeatherType.fromWMO(weatherItems[position].getWeatherCode()).getIconId());
+        Context context = holder.WeatherItemImage.getContext();
+        holder.WeatherItemTemperatureTextView.setText(String.format(context.getString(R.string.temperatureFormat),
+                WeatherApi.formatTemperature(weatherItems[position].getTemperature())));
+        holder.WeatherItemHourTextView.setText(String.format(String.valueOf(context.getText(R.string.hourFormat)), position));
     }
 
     @Override
@@ -49,13 +54,15 @@ public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView WeatherItemImage;
-        public TextView WeatherItemTemperatureImage;
+        public TextView WeatherItemTemperatureTextView;
+        public TextView WeatherItemHourTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             WeatherItemImage = itemView.findViewById(R.id.imgItemWeatherType);
-            WeatherItemTemperatureImage = itemView.findViewById(R.id.lblItemTemperature);
+            WeatherItemTemperatureTextView = itemView.findViewById(R.id.lblItemTemperature);
+            WeatherItemHourTextView = itemView.findViewById(R.id.lblItemHour);
         }
     }
 }
