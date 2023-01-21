@@ -1,8 +1,8 @@
 package me.piotrsz109.utilapp.presentation;
 
-import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED;
-import static android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE;
-import static android.hardware.biometrics.BiometricPrompt.BIOMETRIC_ERROR_HW_UNAVAILABLE;
+import static androidx.biometric.BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE;
+import static androidx.biometric.BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED;
+import static androidx.biometric.BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE;
 
 import android.content.Intent;
 
@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
