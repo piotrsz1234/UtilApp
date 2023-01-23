@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="weatherNavigationText">Pogoda</string>
+    <string name="Notes">Notatki</string>
+    <string name="noPermissionToLocation">Nie nadałeś uprawnień do lokalizacji</string>
+    <string name="failedToFetchWeather">Nie udało się pobrać pogody</string>
+    <string name="Today">Dziś</string>
+    <string name="NextSevenDays">Następny tydzień</string>
+    <string name="title_activity_notes">Notatki</string>
+    <string name="next">Następny</string>
+    <string name="previous">Poprzedni</string>
+    <string name="fetchWeatherInfo">Pobieranie pogody</string>
+    <string name="TitleLabel">"Tytuł: "</string>
+    <string name="CategoryLabel">"Kategoria: "</string>
+    <string name="areYouSure">Czy jesteś pewny(a)?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="TitleHint">Tytuł</string>
+    <string name="save">Zapisz</string>
+    <string name="back">Wstecz</string>
+    <string name="ContentHint">Zawartość</string>
+    <string name="addCategory">Dodaj kategorię</string>
+    <string name="NameHint">Nazwa</string>
+    <string name="red">Czerwony</string>
+    <string name="blue">Niebieski</string>
+    <string name="yellow">Źółty</string>
+    <string name="green">Zielony</string>
+    <string name="selectColor">Wybierz kolor</string>
+    <string name="selectCategory">Wybierz kategorię</string>
+    <string name="addCategoryValidationMessage">Nazwa i kolor są wymagane!</string>
+    <string name="AddEditNoteValidationMessage">Wszystkie pola są wymagane!</string>
+    <string name="authentication_failed">Nie udało ci się uwierzytelnić</string>
+    <string name="no_biometrics">Nie masz ustawionych zabezpieczeń biometrcznych</string>
+    <string name="no_biometric_hardware">Nie masz sprzętu biometrycznego</string>
+    <string name="biometric_hardware_unavailable">Urządzenie biometryczne niedostępne</string>
+    <string name="biometrics_title">Uwierzytelnij się</string>
+    <string name="biometrics_description">Nie wstydź się</string>
+    <string name="reloadWeather">Czy chcesz pobrać lokalizację i pogodę na nowo?</string>
+</resources>

@@ -41,7 +41,7 @@ import me.piotrsz109.utilapp.weather.formats.TemperatureFormat;
 public class WeatherActivity extends AppCompatActivity {
     int LOCATION_REFRESH_TIME = 15000; // 15 seconds to update
     int LOCATION_REFRESH_DISTANCE = 1500; // 500 meters to update
-    private Address _currentAddress;
+    private static Address _currentAddress;
     private ProgressDialog _loadingDialog;
 
     private LocationManager locationManager;
@@ -65,6 +65,11 @@ public class WeatherActivity extends AppCompatActivity {
         _currentHourTextView = findViewById(R.id.lblCurrentHour);
         _currentLocationTextView = findViewById(R.id.lblCurrentLocation);
 
+        _loadingDialog = new ProgressDialog(this);
+        _loadingDialog.setMessage(getString(R.string.fetchWeatherInfo));
+        _loadingDialog.setCancelable(false);
+        _loadingDialog.setInverseBackgroundForced(true);
+
         _currentLocationTextView.setOnClickListener(view -> {
             if (_currentAddress == null) return;
             String uri = String.format(Locale.getDefault(), "geo:0,0?q=%s", _currentAddress.getAddressLine(0));
@@ -75,35 +80,31 @@ public class WeatherActivity extends AppCompatActivity {
         Context context = this;
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         _locationListener = new SimpleLocationListener(((latitude, longitude) -> {
-            if(WeatherApi.TodayWeather != null && WeatherApi.WeekWeather != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage(context.getString(R.string.reloadWeather))
-                        .setPositiveButton(R.string.yes, (dialog, id) -> {
-                            fetchHourlyWeather(latitude, longitude);
-                            fetchWeeklyWeather(latitude, longitude);
-                            dialog.dismiss();
-                        })
-                        .setNegativeButton(R.string.no, (dialog, id) -> {
-                            setTodayWeather(WeatherApi.TodayWeather);
-                            setWeekWeather(WeatherApi.WeekWeather);
-                            dialog.dismiss();
-                        });
-                builder.create().show();
-            }else {
-                fetchHourlyWeather(latitude, longitude);
-                fetchWeeklyWeather(latitude, longitude);
-            }
+            fetchHourlyWeather(latitude, longitude);
+            fetchWeeklyWeather(latitude, longitude);
 
             setAddress(latitude, longitude);
         }));
 
-        _loadingDialog = new ProgressDialog(this);
-        _loadingDialog.setMessage(getString(R.string.fetchWeatherInfo));
-        _loadingDialog.setCancelable(false);
-        _loadingDialog.setInverseBackgroundForced(true);
-        _loadingDialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        fetchCurrentLocation();
+        if (WeatherApi.TodayWeather != null && WeatherApi.WeekWeather != null && _currentAddress != null) {
+            builder.setMessage(context.getString(R.string.reloadWeather))
+                    .setPositiveButton(R.string.yes, (dialog, id) -> {
+                        fetchCurrentLocation();
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton(R.string.no, (dialog, id) -> {
+                        setTodayWeather(WeatherApi.TodayWeather);
+                        setWeekWeather(WeatherApi.WeekWeather);
+                        _currentLocationTextView.setText(_currentAddress.getLocality());
+                        dialog.dismiss();
+                    });
+        } else {
+            fetchCurrentLocation();
+        }
+
+        builder.create().show();
     }
 
     private void fetchHourlyWeather(double latitude, double longitude) {
@@ -128,8 +129,11 @@ public class WeatherActivity extends AppCompatActivity {
                 WeekWeatherDto weather = (WeekWeatherDto) dto;
                 setWeekWeather(weather);
             }
+
+            _loadingDialog.dismiss();
         }, () -> {
             Toast.makeText(this, R.string.failedToFetchWeather, Toast.LENGTH_LONG).show();
+            _loadingDialog.dismiss();
         }, TemperatureFormat.Celsius);
     }
 
@@ -143,7 +147,7 @@ public class WeatherActivity extends AppCompatActivity {
 
             return;
         }
-
+        _loadingDialog.show();
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, _locationListener);
     }

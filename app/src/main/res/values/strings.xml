@@ -3,7 +3,7 @@
     <string name="todayWeatherUrl" translatable="false">https://api.open-meteo.com/v1/forecast?latitude=%s&amp;longitude=%s&amp;hourly=temperature_2m,weathercode</string>
     <string name="weekWeatherUrl" translatable="false">https://api.open-meteo.com/v1/forecast?latitude=%s&amp;longitude=%s&amp;daily=weathercode,temperature_2m_max,temperature_2m_min&amp;timezone=auto&amp;start_date=%s&amp;end_date=%s</string>
     <string name="weatherNavigationText">Weather</string>
-    <string name="Notes">Note</string>
+    <string name="Notes">Notes</string>
     <string name="noPermissionToLocation">You did not provide permission to access location</string>
     <string name="failedToFetchWeather">Failed to fetch today weather</string>
     <string name="hourFormat" translatable="false">%d:00</string>
@@ -12,17 +12,10 @@
     <string name="NextSevenDays">Next seven days</string>
     <string name="DateFormat" translatable="false">dd-MM</string>
     <string name="weeklyTemperatureFormat" translatable="false">%s / %s C</string>
-    <string name="title_activity_notes">NotesActivity</string>
+    <string name="title_activity_notes">Notes</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fetchWeatherInfo">Fetching weather info</string>
     <string name="TitleLabel">Title:</string>
     <string name="CategoryLabel">Category:</string>
@@ -35,7 +28,7 @@
     <string name="ContentHint">Content</string>
     <string name="addCategory">Add category</string>
     <string name="NameHint">Name</string>
-    <string name="red">red</string>
+    <string name="red">Red</string>
     <string name="blue">Blue</string>
     <string name="yellow">Yellow</string>
     <string name="green">Green</string>
@@ -49,6 +42,5 @@
     <string name="biometric_hardware_unavailable">Biometric device unavailable</string>
     <string name="biometrics_title">Authenticate</string>
     <string name="biometrics_description">Don\'t be shy</string>
-    <string name="NegativeBiometrics">I\'m shy</string>
-    <string name="reloadWeather">Do you wish to reload the weather?</string>
+    <string name="reloadWeather">Do you wish to fetch location and weather anew?</string>
 </resources>
